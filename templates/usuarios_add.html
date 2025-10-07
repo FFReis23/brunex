@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Adicionar Usuário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Adicionar Usuário</h1>
+        <form method="POST">
+            <label>Usuário:</label><br>
+            <input type="text" name="username" required autofocus><br><br>
+
+            <label>Senha:</label><br>
+            <input type="password" name="senha" required><br><br>
+
+            <label>Tipo:</label><br>
+            <select name="tipo" required>
+                <option value="usuario">Usuário</option>
+                <option value="admin">Administrador</option>
+            </select><br><br>
+
+            <button type="submit">Criar</button>
+        </form>
+        <p><a href="{{ url_for('usuarios') }}">Voltar</a></p>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <p class="flash">{{ messages[0] }}</p>
+          {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background: white;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #aaa;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+input, select, button {
+    font-size: 1em;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background: #2c7;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1a5;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 6px;
+}
+
+th {
+    background-color: #eee;
+}
+
+.flash {
+    background-color: #ffcccb;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 3px;
+}

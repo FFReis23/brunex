@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Adicionar Material</title></head>
+<body>
+    <h2>Adicionar Material</h2>
+    <form method="POST">
+        Nome:<br>
+        <input type="text" name="nome" required><br>
+        Cidade Origem:<br>
+        <input type="text" name="cidade_origem" required><br>
+        Cidade Destino:<br>
+        <input type="text" name="cidade_destino" required><br><br>
+        <button type="submit">Adicionar</button>
+    </form>
+    <p><a href="{{ url_for('index') }}">Voltar</a></p>
+</body>
+</html>

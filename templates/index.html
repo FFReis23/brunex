@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><title>Materiais</title></head>
+<body>
+    <h1>Bem-vindo {{ session.username }}</h1>
+    <a href="{{ url_for('logout') }}">Sair</a>
+    {% if admin %}
+      <p><a href="{{ url_for('add_material') }}">Adicionar Material</a></p>
+    {% endif %}
+
+    <h2>Lista de Materiais</h2>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Nome</th>
+            <th>Cidade Origem</th>
+            <th>Cidade Destino</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        {% for m in materiais %}
+        <tr>
+            <td>{{ m.nome }}</td>
+            <td>{{ m.cidade_origem }}</td>
+            <td>{{ m.cidade_destino }}</td>
+            <td>{{ m.status }}</td>
+            <td>
+                {% if m.status == 'pendente' %}
+                  <a href="{{ url_for('atualizar_status', id=m.id, acao='entregar') }}">Entregar</a>
+                {% elif m.status == 'entregue' %}
+                  <a href="{{ url_for('atualizar_status', id=m.id, acao='coletar') }}">Coletar</a>
+                {% else %}
+                  -
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
