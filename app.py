@@ -27,10 +27,9 @@ class Usuario(db.Model):
 class Material(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(120), nullable=False)
-    cidade_origem = db.Column(db.String(80), nullable=False)
-    cidade_destino = db.Column(db.String(80), nullable=False)
     status = db.Column(db.String(50), default='pendente')  # pendente, entregue, coletado
-
+    endereco = db.Column(db.String(120), nullable=True)  # <-- novo campo
+    responsavel = db.Column(db.String(100), nullable=True)  # <-- novo campo
 # Helpers
 def admin_logado():
     return session.get('usuario_id') and session.get('is_admin')
