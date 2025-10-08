@@ -1,20 +1,79 @@
 <!DOCTYPE html>
-<html>
-<head><title>Login</title></head>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>BRUNEX - Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #2c3e50;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            color: #ecf0f1;
+        }
+        .login-container {
+            background: #34495e;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            width: 320px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 10px;
+            margin: 10px 0 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #27ae60;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #2ecc71;
+        }
+        .flash {
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .flash.success { color: #2ecc71; }
+        .flash.danger { color: #e74c3c; }
+    </style>
+</head>
 <body>
-    <h2>Login</h2>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% for category, message in messages %}
-        <p style="color: {% if category == 'danger' %}red{% elif category == 'success' %}green{% else %}black{% endif %}">{{ message }}</p>
-      {% endfor %}
-    {% endwith %}
-
-    <form method="POST">
-        Usuário:<br>
-        <input type="text" name="username" required><br>
-        Senha:<br>
-        <input type="password" name="senha" required><br><br>
-        <button type="submit">Entrar</button>
-    </form>
+    <div class="login-container">
+        <h1>BRUNEX</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('login') }}">
+            <input type="text" name="username" placeholder="Usuário" required autofocus />
+            <input type="password" name="senha" placeholder="Senha" required />
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
 </body>
 </html>
