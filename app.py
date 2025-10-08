@@ -117,4 +117,8 @@ def criar_admin():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+
+@app.route('/criar_tabelas')
+def criar_tabelas():
+    db.create_all()
+    return 'Tabelas criadas com sucesso.'
