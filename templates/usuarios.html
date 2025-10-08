@@ -1,49 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <title>Gerenciar Usuários</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <title>Lista de Usuários</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Gerenciar Usuários</h1>
-        <p><a href="{{ url_for('index') }}">Voltar</a> | <a href="{{ url_for('usuarios_add') }}">Adicionar Usuário</a></p>
-
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <p class="flash">{{ messages[0] }}</p>
-          {% endif %}
-        {% endwith %}
-
-        <table border="1" cellpadding="5" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Usuário</th>
-                    <th>Tipo</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for u in usuarios %}
-                <tr>
-                    <td>{{ u[0] }}</td>
-                    <td>{{ u[1] }}</td>
-                    <td>{{ u[2] }}</td>
-                    <td>
-                        {% if u[2] != 'admin' %}
-                        <form method="POST" action="{{ url_for('usuarios_delete', id=u[0]) }}" onsubmit="return confirm('Confirma exclusão?');">
-                            <button type="submit">Excluir</button>
-                        </form>
-                        {% else %}
-                        -
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <h1>Usuários Cadastrados</h1>
+    <ul>
+        {% for usuario in usuarios %}
+            <li>{{ usuario.username }} {% if usuario.is_admin %}(Admin){% endif %}</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{{ url_for('index') }}">Voltar</a></p>
 </body>
 </html>

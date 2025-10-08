@@ -145,3 +145,11 @@ def criar_usuario():
             return redirect(url_for('admin'))
 
     return render_template('criar_usuario.html')
+@app.route('/usuarios')
+def usuarios():
+    if not admin_logado():
+        flash('Acesso negado.', 'danger')
+        return redirect(url_for('index'))
+
+    usuarios = Usuario.query.all()
+    return render_template('usuarios.html', usuarios=usuarios)

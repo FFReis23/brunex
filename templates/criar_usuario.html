@@ -23,7 +23,8 @@
 
             <button type="submit">Criar</button>
         </form>
-        <p><a href="{{ url_for('usuarios') }}">Voltar</a></p>
+        <a href="{{ url_for('usuarios') }}">Voltar</a>
+
 
         {% with messages = get_flashed_messages() %}
           {% if messages %}

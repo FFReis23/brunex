@@ -24,8 +24,8 @@
         {% for m in materiais %}
         <tr>
             <td>{{ m.nome }}</td>
-            <td>{{ m.cidade_origem }}</td>
-            <td>{{ m.cidade_destino }}</td>
+            <td>{{ m.Endereço }}</td>
+            <td>{{ m.Responsável }}</td>
             <td>{{ m.status }}</td>
             <td>
                 {% if m.status == 'pendente' %}
