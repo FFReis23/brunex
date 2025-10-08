@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'troque_essa_chave_secreta')
 
+# Usa variável de ambiente DATABASE_URL, ou fallback para sqlite local
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///local.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -28,8 +29,9 @@ class Material(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(120), nullable=False)
     status = db.Column(db.String(50), default='pendente')  # pendente, entregue, coletado
-    endereco = db.Column(db.String(120), nullable=True)  # <-- novo campo
-    responsavel = db.Column(db.String(100), nullable=True)  # <-- novo campo
+    endereco = db.Column(db.String(120), nullable=True)  # novo campo
+    responsavel = db.Column(db.String(100), nullable=True)  # novo campo
+
 # Helpers
 def admin_logado():
     return session.get('usuario_id') and session.get('is_admin')
@@ -38,7 +40,6 @@ def usuario_logado():
     return session.get('usuario_id')
 
 # Rotas
-
 @app.route('/')
 def index():
     if not usuario_logado():
@@ -72,9 +73,9 @@ def add_material():
         return redirect(url_for('index'))
 
     if request.method == 'POST':
-        nome = request.form['nome']
-        endereco = request.form['endereco']
-        responsavel = request.form['responsavel']
+        nome = request.form.get('nome')
+        endereco = request.form.get('endereco', '')
+        responsavel = request.form.get('responsavel', '')
 
         material = Material(nome=nome, endereco=endereco, responsavel=responsavel)
         db.session.add(material)
@@ -83,6 +84,7 @@ def add_material():
         return redirect(url_for('index'))
 
     return render_template('add_material.html')
+
 @app.route('/atualizar_status/<int:id>/<acao>')
 def atualizar_status(id, acao):
     if not usuario_logado():
@@ -113,15 +115,10 @@ def criar_admin():
     db.session.commit()
     return 'Admin criado com sucesso.'
 
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-
 @app.route('/criar_tabelas')
 def criar_tabelas():
     db.create_all()
     return 'Tabelas criadas com sucesso.'
-
 
 @app.route('/criar_usuario', methods=['GET', 'POST'])
 def criar_usuario():
@@ -141,9 +138,10 @@ def criar_usuario():
             db.session.add(novo_usuario)
             db.session.commit()
             flash('Usuário criado com sucesso!', 'success')
-            return redirect(url_for('admin'))
+            return redirect(url_for('usuarios'))
 
     return render_template('criar_usuario.html')
+
 @app.route('/usuarios')
 def usuarios():
     if not admin_logado():
@@ -152,3 +150,12 @@ def usuarios():
 
     usuarios = Usuario.query.all()
     return render_template('usuarios.html', usuarios=usuarios)
+
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
+@app.route('/criar_tabelas')
+def criar_tabelas():
+    db.create_all()
+    return 'Tabelas criadas com sucesso.'
