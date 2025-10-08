@@ -66,7 +66,6 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/add_material', methods=['GET', 'POST'])
-d@app.route('/add_material', methods=['GET', 'POST'])
 def add_material():
     if not admin_logado():
         flash('Acesso negado.', 'danger')
