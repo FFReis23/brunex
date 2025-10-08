@@ -122,3 +122,26 @@ if __name__ == '__main__':
 def criar_tabelas():
     db.create_all()
     return 'Tabelas criadas com sucesso.'
+
+
+@app.route('/criar_usuario', methods=['GET', 'POST'])
+def criar_usuario():
+    if not admin_logado():
+        flash('Acesso negado. Apenas admin.', 'danger')
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        username = request.form['username']
+        senha = request.form['senha']
+
+        if Usuario.query.filter_by(username=username).first():
+            flash('Usuário já existe.', 'danger')
+        else:
+            novo_usuario = Usuario(username=username, is_admin=False)
+            novo_usuario.set_senha(senha)
+            db.session.add(novo_usuario)
+            db.session.commit()
+            flash('Usuário criado com sucesso!', 'success')
+            return redirect(url_for('admin'))
+
+    return render_template('criar_usuario.html')
