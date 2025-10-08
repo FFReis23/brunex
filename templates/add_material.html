@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head><title>Adicionar Material</title></head>
+<head>
+    <title>Adicionar Material</title>
+</head>
 <body>
     <h2>Adicionar Material</h2>
     <form method="POST">
-        Nome:<br>
-        <input type="text" name="nome" required><br>
-        nome:<br>
-        <input type="text" name="Endereço" required><br>
-        endereço:<br>
-        <input type="text" name="Responsável" required><br><br>
+        <label for="nome">Nome do Material:</label><br>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="endereco">Endereço:</label><br>
+        <input type="text" id="endereco" name="endereco" required><br><br>
+
+        <label for="responsavel">Responsável:</label><br>
+        <input type="text" id="responsavel" name="responsavel" required><br><br>
+
         <button type="submit">Adicionar</button>
     </form>
+
     <p><a href="{{ url_for('index') }}">Voltar</a></p>
 </body>
 </html>
