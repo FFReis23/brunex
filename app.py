@@ -67,6 +67,7 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/add_material', methods=['GET', 'POST'])
+d@app.route('/add_material', methods=['GET', 'POST'])
 def add_material():
     if not admin_logado():
         flash('Acesso negado.', 'danger')
@@ -74,16 +75,16 @@ def add_material():
 
     if request.method == 'POST':
         nome = request.form['nome']
-        cidade_origem = request.form['cidade_origem']
-        cidade_destino = request.form['cidade_destino']
-        material = Material(nome=nome, cidade_origem=cidade_origem, cidade_destino=cidade_destino)
+        endereco = request.form['endereco']
+        responsavel = request.form['responsavel']
+
+        material = Material(nome=nome, endereco=endereco, responsavel=responsavel)
         db.session.add(material)
         db.session.commit()
         flash('Material adicionado com sucesso!', 'success')
         return redirect(url_for('index'))
 
-    return render_template('add.html')
-
+    return render_template('add_material.html')
 @app.route('/atualizar_status/<int:id>/<acao>')
 def atualizar_status(id, acao):
     if not usuario_logado():
