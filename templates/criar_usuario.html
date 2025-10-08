@@ -23,9 +23,7 @@
 
             <button type="submit">Criar</button>
         </form>
-        <a href="{{ url_for('usuarios') }}">Voltar</a>
-
-
+        <a href="{{ url_for('index') }}">Voltar</a>
         {% with messages = get_flashed_messages() %}
           {% if messages %}
             <p class="flash">{{ messages[0] }}</p>
